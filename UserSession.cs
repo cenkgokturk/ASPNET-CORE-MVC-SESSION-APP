@@ -1,5 +1,6 @@
 ﻿using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Protocols;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,17 +17,43 @@ namespace ASPNETAOP_Session
 
         public int SetUser(User CurrentUser) {
 
+            Console.WriteLine("****** SetUser Entry");
+
             int id = -1;
 
-            String connection = _configuration.GetConnectionString("localDatabase");
+            String connection = "Data Source=DESKTOP-II1M7LK;Initial Catalog=AccountDb;Integrated Security=True";
             using (SqlConnection sqlconn = new SqlConnection(connection))
             {
-
                 String username = CurrentUser.getUsername();
                 String usermail = CurrentUser.getUsermail();
 
-                string sqlquery = "insert into UserSessions(Username, Usermail) values ('" + username + "', '" + usermail + "' ) " +
-                    "select ID from UserSessions where usermail '" + usermail + "'";
+                string sqlquery = "insert into UserSessions(Username, Usermail) values ('" + username + "', '" + usermail + "' )";
+                using (SqlCommand sqlcomm = new SqlCommand(sqlquery, sqlconn))
+                {
+                    sqlconn.Open();
+                    sqlcomm.ExecuteNonQuery();
+                }
+            }
+
+            id = GetSessionToken(CurrentUser);
+
+            return id;
+        }
+
+        private int GetSessionToken(User CurrentUser)
+        {
+            Console.WriteLine("****** GetSessionToken Entry");
+            int id = -1;
+
+            String connection = "Data Source=DESKTOP-II1M7LK;Initial Catalog=AccountDb;Integrated Security=True";
+            using (SqlConnection sqlconn = new SqlConnection(connection))
+            {
+
+                String usermail = CurrentUser.getUsermail();
+
+                Console.WriteLine("****** GetSessionToken Mail received");
+
+                string sqlquery = "select ID from UserSessions where Usermail = '" + usermail + "'";
                 using (SqlCommand sqlcomm = new SqlCommand(sqlquery, sqlconn))
                 {
                     sqlconn.Open();
@@ -45,6 +72,8 @@ namespace ASPNETAOP_Session
                 }
             }
 
+            Console.WriteLine("****** GetSessionToken Exit");
+
             return id;
         }
 
@@ -53,7 +82,7 @@ namespace ASPNETAOP_Session
             String username = "";
             String usermail = "";
 
-            String connection = _configuration.GetConnectionString("localDatabase");
+            String connection = "Data Source=DESKTOP-II1M7LK;Initial Catalog=AccountDb;Integrated Security=True";
             using (SqlConnection sqlconn = new SqlConnection(connection))
             {
 

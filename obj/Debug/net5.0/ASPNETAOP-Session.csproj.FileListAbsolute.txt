@@ -40,3 +40,4 @@ C:\Users\Cenk\source\repos\ASPNETAOP-Session\obj\Debug\net5.0\ASPNETAOP-Session.
 C:\Users\Cenk\source\repos\ASPNETAOP-Session\obj\Debug\net5.0\ref\ASPNETAOP-Session.dll
 C:\Users\Cenk\source\repos\ASPNETAOP-Session\obj\Debug\net5.0\ASPNETAOP-Session.pdb
 C:\Users\Cenk\source\repos\ASPNETAOP-Session\obj\Debug\net5.0\ASPNETAOP-Session.genruntimeconfig.cache
+C:\Users\Cenk\source\repos\ASPNETAOP-Session\obj\Debug\net5.0\ASPNETAOP-Session.csprojAssemblyReference.cache
